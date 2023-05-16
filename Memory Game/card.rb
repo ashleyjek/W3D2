@@ -1,28 +1,29 @@
 class Card
 
-    attr_reader :face_val, :side
+    attr_reader :face_val, :current_state, :hidden_state
 
-    def initialize(face_val)
-        @face_val = face_val #letter
-        @side = false #side(false) = hidden, side(true) = reveal
+    def initialize
+
+        @face_val =  ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd', 'e', 'e', 'f', 'f', 'g', 'g', 'h', 'h']
+
+        @hidden_state = '?' #side(false) = hidden, side(true) = reveal
+
+        @current_state = @hidden_state
+
     end
 
     def hide
-       @side = false
+       @current_state = @hidden_state
     end
 
     def reveal
-        @side = true
+        @current_state = face_val
         # puts "card is face-up"
     end
 
-    def to_s(pos)  
-        pos.to_s
 
-    end
 
-    def ==(pos)
-        self == pos
-    end
+    
 
-end
+
+    # @face_val =  ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd', 'e', 'e', 'f', 'f', 'g', 'g', 'h', 'h']

@@ -1,23 +1,30 @@
-require "./card.rb"
-require "byebug"
 class Board 
+    require './card.rb'
 
+    attr_reader :populate
 
     def initialize
 
-        @board = Array.new(4) {Array.new(4,"?")}
+       
 
-        # @populate = Card.new
+        @populate = Card.new
+
+        
+        @board = Array.new(4) {Array.new(4, Card.new.face_val)}
+
+        @size = 16 
+
 
     end 
 
     def [](pos)
 
-        row, col = pos 
+        row, col = pos
 
         @board[row][col]
 
-    end
+
+    end 
 
 
     def []=(pos, val)
@@ -29,25 +36,8 @@ class Board
     end
 
 
-    def num_hidden
 
-        @board.flatten.count {|ele| ele != "?" }
-
-    end 
-
-    def won?
-
-        @board.each do |row|
-            row.all? {|ele| ele == true }
-            return true 
-        end 
-
-    return false 
-
-    end 
-
-
-    def render 
+    def render
 
         @board.each do |row|
             puts row.join(" ")
@@ -56,73 +46,34 @@ class Board
     end 
 
 
-    def place_cards 
+    def won?
 
-        # while num_hidden <= 0
-        #     @board.map do |row|
-        #         row.map do |ele|
-        #             value = ('a'..'h').to_a.sample
-        #             if ele == "?"
-        #                 "a"
-        #             end
-        #         end
-        #     end
-        # end
-
-        p num_hidden
-        while num_hidden <= 16
-            row = rand(0...@board.length)
-            p row
-            col = rand(0...@board.length)
-            p col
-            value = ('a'..'h').to_a.sample
-            p value
-            pos = [row, col]
-            p pos
-            p self[pos] = value
-        
-          end
-            # r_row = rand(0...@board.length)
-            # r_col = rand(0...@board.length)
-            # value = ('a'..'h').to_a.sample
-            # pos = [r_row, r_col]
-            # self[pos] = Card.new(value).face_val
-        # end
-         
 
     end 
 
 
-    def hidden_cards_grid
-
+    def hidden_board 
 
         @board.map do |row|
             row.map do |ele|
                 if ele != '?'
-                    "?"
+                    '?'
                 end 
             end 
         end 
 
 
-    end
-
-
-    def self.print_board(arr)
-
-        arr.each do |row|
-            puts row.join(" ")
-        end 
-
     end 
 
 
-    def cheat 
+    # def reveal?
 
-        Board.print_board(@board)
+    #     @board.each do |row|
+    #         row.each do |card|
+    #           card.  
 
-    end
+    # end 
 
-    
 
-end
+
+end 
