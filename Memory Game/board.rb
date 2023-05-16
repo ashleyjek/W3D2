@@ -1,3 +1,5 @@
+require "./card.rb"
+require "byebug"
 class Board 
 
 
@@ -29,7 +31,7 @@ class Board
 
     def num_hidden
 
-        @board.flatten.count {|ele| ele.hide == false}
+        @board.flatten.count {|ele| ele != "?" }
 
     end 
 
@@ -56,13 +58,37 @@ class Board
 
     def place_cards 
 
-        while num_hidden < 16
-            r_row = rand(0...@board.length)
-            r_col = rand(0...@board.length)
+        # while num_hidden <= 0
+        #     @board.map do |row|
+        #         row.map do |ele|
+        #             value = ('a'..'h').to_a.sample
+        #             if ele == "?"
+        #                 "a"
+        #             end
+        #         end
+        #     end
+        # end
+
+        p num_hidden
+        while num_hidden <= 16
+            row = rand(0...@board.length)
+            p row
+            col = rand(0...@board.length)
+            p col
             value = ('a'..'h').to_a.sample
-            pos = [r_row, r_col]
-            self[pos] = Card.new(value)
-        end 
+            p value
+            pos = [row, col]
+            p pos
+            p self[pos] = value
+        
+          end
+            # r_row = rand(0...@board.length)
+            # r_col = rand(0...@board.length)
+            # value = ('a'..'h').to_a.sample
+            # pos = [r_row, r_col]
+            # self[pos] = Card.new(value).face_val
+        # end
+         
 
     end 
 
