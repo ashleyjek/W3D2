@@ -4,17 +4,20 @@ class Board
     attr_reader :populate
 
     def initialize
-
-       
-
-        @populate = Card.new
-
-        
-        @board = Array.new(4) {Array.new(4, Card.new.face_val)}
-
+        @letters = ("a".."h").to_a
+        @cards = []
+        @board = Array.new(4) {Array.new}
+        @letters.each do |char|
+            @cards << Card.new(char)
+            @cards << Card.new(char)
+        end
+        @cards.shuffle!
+        @board.each do |row|
+            4.times do 
+                row << @cards.pop
+            end
+        end
         @size = 16 
-
-
     end 
 
     def [](pos)
@@ -38,10 +41,18 @@ class Board
 
 
     def render
-
+        new_arr = []
         @board.each do |row|
+            subarr = []
+            row.each do |ele|
+                subarr << ele.face_val
+            end
+            new_arr << subarr
+        end
+        
+        new_arr.each do |row|
             puts row.join(" ")
-        end 
+        end
 
     end 
 
@@ -60,19 +71,28 @@ class Board
                     '?'
                 end 
             end 
-        end 
+        end  
 
 
     end 
 
 
-    # def reveal?
+    def face_value_board
+        @board.map do |row|
+            row.map do |ele|
+                ele.face_val
+            end
+        end
 
-    #     @board.each do |row|
-    #         row.each do |card|
-    #           card.  
-
-    # end 
+    end
+    
+    def reveal(pos)
+        if self[pos].current_state == self[pos].hidden? 
+            self[pos].switch_side
+            return self[pos].face_val
+        end 
+    
+    end
 
 
 
